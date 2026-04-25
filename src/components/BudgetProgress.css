@@ -1,0 +1,13 @@
+.budget-progress-card { background:#fff; border-radius:16px; padding:24px; box-shadow:0 2px 12px rgba(0,0,0,0.07); margin-top:24px; }
+.progress-title { font-size:18px; font-weight:600; color:#1a1f2e; margin-bottom:20px; }
+.no-budget-msg { text-align:center; padding:40px; color:#9ca3af; }
+.progress-list { display:flex; flex-direction:column; gap:20px; }
+.progress-item { display:flex; flex-direction:column; gap:8px; }
+.progress-header { display:flex; justify-content:space-between; align-items:center; }
+.cat-dot { width:10px; height:10px; border-radius:50%; }
+.cat-name { font-size:14px; font-weight:500; color:#1a1f2e; }
+.spent-amount { font-weight:600; color:#1a1f2e; } .spent-amount.over { color:#ef4444; } .limit-amount { color:#9ca3af; }
+.progress-track { height:10px; background:#f3f4f6; border-radius:10px; overflow:hidden; }
+.progress-fill { height:100%; border-radius:10px; transition:width 0.5s; }
+.progress-footer { display:flex; justify-content:space-between; font-size:12px; }
+.over-budget { color:#ef4444; font-weight:500; } .under-budget { color:#10b981; font-weight:500; } .percent-label { color:#9ca3af; }

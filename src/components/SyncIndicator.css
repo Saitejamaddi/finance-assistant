@@ -1,0 +1,62 @@
+.sync-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 16px;
+  background: #1a1f2e;
+  position: fixed;
+  top: 0;
+  left: 220px;
+  right: 0;
+  z-index: 40;
+  height: 44px;
+}
+
+.sync-user {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sync-avatar {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 2px solid #3b82f6;
+}
+
+.sync-name {
+  font-size: 13px;
+  color: #9ca3af;
+  font-weight: 500;
+}
+
+.sync-status {
+  font-size: 12px;
+  font-weight: 500;
+  padding: 3px 10px;
+  border-radius: 20px;
+}
+
+.sync-status.syncing {
+  background: #fef3c7;
+  color: #d97706;
+  animation: pulse 1s infinite;
+}
+
+.sync-status.saved {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+@media (max-width: 768px) {
+  .sync-bar {
+    left: 0;
+    top: 0;
+  }
+}

@@ -1,0 +1,9 @@
+.modal-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.45); display:flex; align-items:center; justify-content:center; z-index:1000; }
+.modal-box { background:#fff; border-radius:20px; padding:32px 28px; width:100%; max-width:360px; text-align:center; box-shadow:0 20px 60px rgba(0,0,0,0.15); }
+.modal-icon { font-size:36px; margin-bottom:12px; } .modal-title { font-size:18px; font-weight:600; color:#1a1f2e; margin-bottom:8px; }
+.modal-message { font-size:14px; color:#6b7280; margin-bottom:24px; line-height:1.6; }
+.modal-actions { display:flex; gap:12px; }
+.modal-cancel { flex:1; padding:11px; background:#f3f4f6; color:#374151; border:none; border-radius:10px; font-size:14px; font-weight:600; cursor:pointer; }
+.modal-cancel:hover { background:#e5e7eb; }
+.modal-confirm { flex:1; padding:11px; background:#ef4444; color:#fff; border:none; border-radius:10px; font-size:14px; font-weight:600; cursor:pointer; }
+.modal-confirm:hover { background:#dc2626; }

@@ -1,0 +1,25 @@
+.cat-form-card { background:#fff; border-radius:16px; padding:24px; box-shadow:0 2px 12px rgba(0,0,0,0.07); margin-bottom:24px; }
+.cat-form-title { font-size:18px; font-weight:600; color:#1a1f2e; margin-bottom:16px; }
+.cat-input-row { display:flex; gap:12px; }
+.cat-input { flex:1; padding:10px 14px; border:1.5px solid #e5e7eb; border-radius:10px; font-size:14px; color:#1a1f2e; outline:none; background:#f9fafb; }
+.cat-input:focus { border-color:#3b82f6; }
+.cat-add-btn { padding:10px 24px; background:#1a1f2e; color:#fff; border:none; border-radius:10px; font-size:14px; font-weight:600; cursor:pointer; }
+.cat-add-btn:hover { background:#3b82f6; }
+.cat-error { color:#ef4444; font-size:13px; margin-top:8px; }
+.cat-section { background:#fff; border-radius:16px; padding:24px; box-shadow:0 2px 12px rgba(0,0,0,0.07); margin-bottom:20px; }
+.cat-section-title { font-size:16px; font-weight:600; color:#1a1f2e; margin-bottom:16px; }
+.cat-grid { display:flex; flex-wrap:wrap; gap:10px; }
+.cat-chip { display:flex; align-items:center; gap:8px; padding:8px 14px; border-radius:20px; }
+.cat-chip.default { background:#f3f4f6; border:1.5px solid #e5e7eb; }
+.cat-chip.custom { background:#eff6ff; border:1.5px solid #bfdbfe; }
+.cat-chip-dot { width:10px; height:10px; border-radius:50%; }
+.cat-chip-name { font-weight:500; color:#1a1f2e; }
+.cat-chip-badge { font-size:11px; color:#9ca3af; background:#e5e7eb; padding:2px 8px; border-radius:10px; }
+.cat-chip-delete { background:none; border:none; color:#93c5fd; font-size:13px; cursor:pointer; padding:2px 4px; border-radius:4px; }
+.cat-chip-delete:hover { background:#fee2e2; color:#ef4444; }
+
+@media (max-width: 768px) {
+  .cat-form-card { padding: 16px; }
+  .cat-input-row { flex-direction: column; }
+  .cat-add-btn { width: 100%; }
+}

@@ -1,0 +1,157 @@
+/* ── Summary grid ── */
+.dash-summary {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.balance-card {
+  grid-column: span 2;
+  background: #caf19a;
+  border-radius: 16px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+}
+
+.balance-card .dash-label { color: #9ca3af; font-size: 13px; font-weight: 500; }
+
+.balance-val {
+  font-size: 36px;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.2;
+}
+
+.balance-val.negative { color: #ef4444; }
+
+.balance-hint {
+  font-size: 12px;
+  color: #6b7280;
+  cursor: pointer;
+  margin-top: 4px;
+  transition: color 0.2s;
+}
+.balance-hint:hover { color: #60a5fa; }
+
+.balance-edit-row {
+  display: flex;
+  gap: 8px;
+  margin-top: 4px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.balance-input {
+  flex: 1;
+  min-width: 100px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid #4b5563;
+  background: #374151;
+  color: #ffffff;
+  font-size: 14px;
+  outline: none;
+}
+
+.balance-input:focus { border-color: #3b82f6; }
+
+.balance-save-btn {
+  padding: 8px 16px;
+  background: #3b82f6;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.balance-cancel-btn {
+  padding: 8px 10px;
+  background: #4b5563;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.dash-card {
+  border-radius: 16px;
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+}
+
+.debit-card  { background: #fef2f2; }
+.credit-card { background: #f0fdf4; }
+.purple      { background: #faf5ff; }
+
+.dash-label { font-size: 13px; color: #6b7280; font-weight: 500; }
+.dash-value { font-size: 26px; font-weight: 700; color: #1a1f2e; }
+.debit-color  { color: #ef4444 !important; }
+.credit-color { color: #10b981 !important; }
+
+/* ── Charts grid ── */
+.dash-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.dash-panel {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+}
+
+.panel-title { font-size: 16px; font-weight: 600; color: #1a1f2e; margin-bottom: 16px; }
+.panel-empty { color: #9ca3af; font-size: 14px; text-align: center; padding: 40px 0; }
+
+.recent-list { display: flex; flex-direction: column; gap: 12px; }
+
+.recent-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 14px;
+  background: #f9fafb;
+  border-radius: 10px;
+}
+
+.recent-title { font-size: 14px; font-weight: 500; color: #1a1f2e; }
+.recent-meta  { font-size: 12px; color: #9ca3af; margin-top: 2px; }
+.recent-amount { font-size: 14px; font-weight: 600; }
+.recent-amount.debit  { color: #ef4444; }
+.recent-amount.credit { color: #10b981; }
+
+/* ── Mobile ── */
+@media (max-width: 768px) {
+  .dash-summary {
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .balance-card {
+    grid-column: span 2;
+    padding: 18px;
+  }
+
+  .balance-val { font-size: 28px; }
+
+  .dash-card { padding: 14px 16px; }
+  .dash-value { font-size: 20px; }
+  .dash-label { font-size: 12px; }
+
+  .dash-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}

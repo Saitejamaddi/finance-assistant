@@ -1,0 +1,82 @@
+.sidebar {
+  width: 220px;
+  min-height: 100vh;
+  background: #1a1f2e;
+  display: flex;
+  flex-direction: column;
+  padding: 24px 16px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 50;
+  overflow-y: auto;
+}
+
+.sidebar-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 8px;
+  margin-bottom: 36px;
+}
+
+.logo-icon { font-size: 24px; }
+.logo-text { font-size: 20px; font-weight: 700; color: #ffffff; letter-spacing: 0.5px; }
+
+.sidebar-nav { display: flex; flex-direction: column; gap: 4px; }
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 14px;
+  border-radius: 10px;
+  text-decoration: none;
+  color: #8892a4;
+  font-size: 15px;
+  transition: all 0.2s ease;
+}
+
+.nav-link:hover { background: #252c3d; color: #ffffff; }
+.nav-link.active { background: #3b82f6; color: #ffffff; font-weight: 500; }
+.nav-icon { font-size: 18px; }
+
+.sidebar-bot-hint {
+  margin-top: auto;
+  padding: 12px 14px;
+  background: #252c3d;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.bot-label { font-size: 14px; color: #ffffff; flex: 1; }
+.bot-status { font-size: 11px; color: #10b981; font-weight: 600; }
+
+/* ── Hide sidebar on mobile ── */
+@media (max-width: 768px) {
+  .sidebar {
+    display: none;
+  }
+}
+
+.logout-btn {
+  margin-top: 12px;
+  width: 100%;
+  padding: 10px 14px;
+  background: none;
+  border: 1.5px solid #374151;
+  border-radius: 10px;
+  color: #6b7280;
+  font-size: 13px;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.2s;
+}
+
+.logout-btn:hover {
+  background: #fef2f2;
+  border-color: #ef4444;
+  color: #ef4444;
+}

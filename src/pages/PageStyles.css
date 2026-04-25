@@ -1,0 +1,19 @@
+.page {
+  max-width: 860px;
+  width: 100%;
+  margin: 0 auto; /* 👈 this centers everything */
+}
+
+.page-heading {
+  font-size: 26px;
+  font-weight: 700;
+  color: #1a1f2e;
+  margin-bottom: 24px;
+}
+
+@media (max-width: 768px) {
+  .page-heading {
+    font-size: 20px;
+    margin-bottom: 16px;
+  }
+}

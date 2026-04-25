@@ -1,0 +1,71 @@
+.txn-list-card { background: #ffffff; border-radius: 16px; padding: 24px; box-shadow: 0 2px 12px rgba(0,0,0,0.07); margin-top: 24px; }
+
+.txn-list-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 16px; }
+.txn-list-title { font-size: 18px; font-weight: 600; color: #1a1f2e; }
+.txn-count { font-size: 12px; color: #9ca3af; margin-top: 2px; display: block; }
+
+.export-btn { padding: 10px 18px; background: #f0fdf4; color: #10b981; border: 1.5px solid #6ee7b7; border-radius: 10px; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.2s; white-space: nowrap; }
+.export-btn:hover { background: #d1fae5; border-color: #10b981; }
+
+.type-filter-bar { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; }
+.type-filter-btn { padding: 7px 18px; border-radius: 20px; border: 1.5px solid #e5e7eb; font-size: 13px; background: #f9fafb; color: #6b7280; cursor: pointer; font-weight: 500; transition: all 0.2s; }
+.type-filter-btn.active-all    { background: #1a1f2e; color: #fff; border-color: #1a1f2e; }
+.type-filter-btn.active-debit  { background: #fef2f2; color: #ef4444; border-color: #ef4444; }
+.type-filter-btn.active-credit { background: #f0fdf4; color: #10b981; border-color: #10b981; }
+
+.filtered-total { margin-left: auto; font-size: 13px; font-weight: 600; padding: 4px 12px; border-radius: 20px; }
+.filtered-total.positive { color: #10b981; background: #f0fdf4; }
+.filtered-total.negative { color: #ef4444; background: #fef2f2; }
+
+.filter-bar { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+.filter-btn { padding: 6px 14px; border: 1.5px solid #e5e7eb; border-radius: 20px; font-size: 13px; background: #f9fafb; color: #6b7280; cursor: pointer; transition: all 0.2s; }
+.filter-btn.active { background: #3b82f6; color: #fff; border-color: #3b82f6; }
+
+.empty-state { text-align: center; padding: 48px 20px; color: #9ca3af; }
+.empty-state p { font-size: 15px; font-weight: 500; margin-bottom: 6px; }
+.empty-state span { font-size: 13px; }
+
+.txn-items { display: flex; flex-direction: column; gap: 10px; }
+
+.txn-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  border-radius: 12px;
+  background: #f9fafb;
+  border-left: 4px solid transparent;
+  transition: background 0.2s;
+}
+.txn-item.debit  { border-left-color: #ef4444; }
+.txn-item.credit { border-left-color: #10b981; }
+.txn-item:hover  { background: #f3f4f6; }
+
+.txn-left { display: flex; align-items: flex-start; gap: 12px; flex: 1; min-width: 0; }
+.cat-dot { width: 10px; height: 10px; border-radius: 50%; margin-top: 5px; flex-shrink: 0; }
+.txn-info { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.txn-title-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.txn-title { font-size: 14px; font-weight: 500; color: #1a1f2e; }
+.recurring-badge { font-size: 11px; background: #eff6ff; color: #3b82f6; padding: 2px 8px; border-radius: 10px; font-weight: 500; white-space: nowrap; }
+.txn-meta { font-size: 12px; color: #9ca3af; }
+.txn-notes { font-size: 12px; color: #6b7280; font-style: italic; word-break: break-word; }
+
+.txn-right { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+.txn-amount { font-size: 15px; font-weight: 700; white-space: nowrap; }
+.txn-amount.debit  { color: #ef4444; }
+.txn-amount.credit { color: #10b981; }
+
+.delete-btn { background: none; border: none; color: #d1d5db; font-size: 14px; cursor: pointer; padding: 4px 8px; border-radius: 6px; transition: all 0.2s; }
+.delete-btn:hover { background: #fee2e2; color: #ef4444; }
+
+@media (max-width: 768px) {
+  .txn-list-card { padding: 16px; border-radius: 12px; margin-top: 16px; }
+  .txn-list-header { flex-direction: column; gap: 10px; align-items: flex-start; }
+  .export-btn { width: 100%; text-align: center; }
+  .type-filter-bar { gap: 6px; }
+  .type-filter-btn { padding: 6px 12px; font-size: 12px; }
+  .filter-bar { gap: 6px; }
+  .filter-btn { padding: 5px 10px; font-size: 12px; }
+  .txn-item { padding: 10px 12px; }
+  .txn-amount { font-size: 13px; }
+}

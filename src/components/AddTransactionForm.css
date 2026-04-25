@@ -1,0 +1,54 @@
+.txn-form-card { background: #ffffff; border-radius: 16px; padding: 24px; box-shadow: 0 2px 12px rgba(0,0,0,0.07); }
+.txn-form-title { font-size: 18px; font-weight: 600; color: #1a1f2e; margin-bottom: 20px; }
+.txn-form { display: flex; flex-direction: column; gap: 16px; }
+
+.type-toggle { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.toggle-btn { padding: 14px 12px; border-radius: 12px; border: 2px solid #e5e7eb; font-size: 15px; font-weight: 600; cursor: pointer; background: #f9fafb; color: #6b7280; transition: all 0.2s; display: flex; flex-direction: column; align-items: center; gap: 2px; }
+.toggle-hint { font-size: 11px; font-weight: 400; color: #9ca3af; }
+.toggle-btn.debit-btn.active  { background: #fef2f2; border-color: #ef9744; color: #ef9744; }
+.toggle-btn.debit-btn.active .toggle-hint { color: #fca5a5; }
+.toggle-btn.credit-btn.active { background: #f0fdf4; border-color: #10b981; color: #10b981; }
+.toggle-btn.credit-btn.active .toggle-hint { color: #6ee7b7; }
+.toggle-btn:hover { opacity: 0.85; }
+
+.txn-form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+.form-group { display: flex; flex-direction: column; gap: 6px; }
+.form-group label { font-size: 13px; font-weight: 500; color: #6b7280; display: flex; align-items: center; gap: 6px; }
+.optional-tag { font-size: 11px; font-weight: 400; color: #9ca3af; background: #f3f4f6; padding: 1px 8px; border-radius: 10px; }
+.form-group input, .form-group select { padding: 10px 14px; border: 1.5px solid #e5e7eb; border-radius: 10px; font-size: 14px; color: #1a1f2e; outline: none; background: #f9fafb; transition: border 0.2s; }
+.form-group input:focus, .form-group select:focus { border-color: #3b82f6; background: #ffffff; }
+
+/* Notes textarea — clearly visible */
+.notes-textarea {
+  padding: 10px 14px;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 10px;
+  font-size: 14px;
+  color: #1a1f2e;
+  outline: none;
+  background: #f9fafb;
+  transition: border 0.2s;
+  resize: vertical;
+  font-family: inherit;
+  min-height: 64px;
+}
+.notes-textarea:focus { border-color: #3b82f6; background: #ffffff; }
+
+.recurring-section { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; padding: 12px 14px; background: #f9fafb; border-radius: 10px; border: 1.5px solid #e5e7eb; }
+.recurring-label { display: flex; align-items: center; gap: 8px; font-size: 14px; color: #374151; cursor: pointer; }
+.recurring-label input[type="checkbox"] { width: 16px; height: 16px; accent-color: #3b82f6; cursor: pointer; }
+.recurring-select { padding: 8px 12px; border: 1.5px solid #e5e7eb; border-radius: 8px; font-size: 13px; color: #1a1f2e; outline: none; background: #ffffff; }
+
+.txn-submit-btn { padding: 14px; border: none; border-radius: 10px; font-size: 15px; font-weight: 600; cursor: pointer; transition: opacity 0.2s; color: #ffffff; letter-spacing: 0.3px; }
+.txn-submit-btn.debit  { background: #ef4444; }
+.txn-submit-btn.credit { background: #10b981; }
+.txn-submit-btn:hover  { opacity: 0.88; }
+
+@media (max-width: 768px) {
+  .txn-form-card { padding: 16px; border-radius: 12px; }
+  .txn-form-title { font-size: 16px; margin-bottom: 14px; }
+  .txn-form-row { grid-template-columns: 1fr; gap: 12px; }
+  .type-toggle { gap: 8px; }
+  .toggle-btn { padding: 10px 8px; font-size: 14px; }
+}
