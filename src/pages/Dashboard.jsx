@@ -11,7 +11,7 @@ const COLORS = ['#f97316','#3b82f6','#ef4444','#a855f7','#ec4899','#10b981','#6b
 const Dashboard = () => {
   const { transactions, totalCredits, totalDebits } = useTransactions();
   const { currentBalance, openingBalance, setOpeningBalance } = useBalance();
-  const { budgets } = useBudget();
+  //const { budgets } = useBudget();
 
   const [editingBalance, setEditingBalance] = useState(false);
   const [balanceInput, setBalanceInput] = useState('');
