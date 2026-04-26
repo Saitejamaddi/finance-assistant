@@ -1,5 +1,5 @@
-import { useGoogleAuth } from '../context/GoogleAuthContext';
-import './LoginPage.css';
+import { useGoogleAuth } from "../context/GoogleAuthContext";
+import "./LoginPage.css";
 
 const LoginPage = () => {
   const { login, loading } = useGoogleAuth();
@@ -7,11 +7,11 @@ const LoginPage = () => {
   return (
     <div className="login-page">
       <div className="login-card">
-
         <div className="login-logo">💰</div>
         <h1 className="login-title">Finance Assistant</h1>
         <p className="login-subtitle">
-          Track your expenses, budgets & goals.<br />
+          Track your expenses, budgets & goals.
+          <br />
           Your data stays in <strong>your own Google Sheet</strong>.
         </p>
 
@@ -32,6 +32,7 @@ const LoginPage = () => {
             <span>🆓</span>
             <span>Completely free forever</span>
           </div>
+          <div className="login-footer">Made with ❤️ by Sai Teja Maddi</div>
         </div>
 
         <button
@@ -54,10 +55,9 @@ const LoginPage = () => {
         </button>
 
         <p className="login-note">
-          We'll create a Google Sheet called <strong>"Finances"</strong> in your Drive.
-          You can view and edit it directly anytime.
+          We'll create a Google Sheet called <strong>"Finances"</strong> in your
+          Drive. You can view and edit it directly anytime.
         </p>
-
       </div>
     </div>
   );

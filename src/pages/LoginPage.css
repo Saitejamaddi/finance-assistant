@@ -104,6 +104,13 @@
   line-height: 1.6;
 }
 
+.login-footer {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 14px;
+  color: #888;
+}
+
 @media (max-width: 480px) {
   .login-card { padding: 28px 20px; }
   .login-title { font-size: 22px; }
