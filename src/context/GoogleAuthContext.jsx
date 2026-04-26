@@ -13,21 +13,70 @@ export const GoogleAuthProvider = ({ children }) => {
   const [loading, setLoading]             = useState(true);
   const [syncing, setSyncing]             = useState(false);
   const [initialData, setInitialData]     = useState(null);
-  const [gapiReady, setGapiReady]         = useState(false);
 
+  // ── On app load — restore session and reload data from Sheets ──────────
   useEffect(() => {
-    loadGapi().then(() => {
-      setGapiReady(true);
-      setLoading(false);
-      // restore session
-      const savedUser = localStorage.getItem('gauth_user');
-      const savedSheetId = localStorage.getItem('gauth_sheetId');
-      if (savedUser && savedSheetId) {
+    const restoreSession = async () => {
+      try {
+        await loadGapi();
+
+        const savedUser    = localStorage.getItem('gauth_user');
+        const savedSheetId = localStorage.getItem('gauth_sheetId');
+        const savedToken   = localStorage.getItem('gauth_token');
+
+        if (!savedUser || !savedSheetId || !savedToken) {
+          setLoading(false);
+          return;
+        }
+
+        // Restore token into gapi
+        window.gapi.client.setToken({ access_token: savedToken });
+
+        // Verify token is still valid
+        const check = await fetch('https://www.googleapis.com/oauth2/v3/tokeninfo?access_token=' + savedToken);
+        const tokenInfo = await check.json();
+
+        if (tokenInfo.error) {
+          // Token expired — clear session, ask to login again
+          clearSession();
+          setLoading(false);
+          return;
+        }
+
+        // Token valid — reload all data from Sheets
+        setSyncing(true);
+        const [transactions, budgets, goals, categories, settings] = await Promise.all([
+          readTransactions(savedSheetId),
+          readBudgets(savedSheetId),
+          readGoals(savedSheetId),
+          readCategories(savedSheetId),
+          readSettings(savedSheetId),
+        ]);
+
         setUser(JSON.parse(savedUser));
         setSpreadsheetId(savedSheetId);
+        setInitialData({ transactions, budgets, goals, categories, settings });
+
+      } catch (err) {
+        console.error('Session restore error:', err);
+        clearSession();
+      } finally {
+        setLoading(false);
+        setSyncing(false);
       }
-    });
+    };
+
+    restoreSession();
   }, []);
+
+  const clearSession = () => {
+    localStorage.removeItem('gauth_user');
+    localStorage.removeItem('gauth_sheetId');
+    localStorage.removeItem('gauth_token');
+    setUser(null);
+    setSpreadsheetId(null);
+    setInitialData(null);
+  };
 
   const login = async () => {
     try {
@@ -53,14 +102,15 @@ export const GoogleAuthProvider = ({ children }) => {
         readSettings(sheetId),
       ]);
 
-      // Save session
-      localStorage.setItem('gauth_user', JSON.stringify(userInfo));
+      // Save session to localStorage
+      localStorage.setItem('gauth_user',    JSON.stringify(userInfo));
       localStorage.setItem('gauth_sheetId', sheetId);
-      localStorage.setItem('gauth_token', token);
+      localStorage.setItem('gauth_token',   token);
 
       setUser(userInfo);
       setSpreadsheetId(sheetId);
       setInitialData({ transactions, budgets, goals, categories, settings });
+
     } catch (err) {
       console.error('Login error:', err);
       alert('Login failed. Please try again.');
@@ -71,21 +121,17 @@ export const GoogleAuthProvider = ({ children }) => {
   };
 
   const logout = () => {
-    localStorage.removeItem('gauth_user');
-    localStorage.removeItem('gauth_sheetId');
-    localStorage.removeItem('gauth_token');
-    setUser(null);
-    setSpreadsheetId(null);
-    setInitialData(null);
-    if (window.google?.accounts?.oauth2) {
-      window.google.accounts.oauth2.revoke(localStorage.getItem('gauth_token'));
+    const token = localStorage.getItem('gauth_token');
+    if (token && window.google?.accounts?.oauth2) {
+      window.google.accounts.oauth2.revoke(token);
     }
+    clearSession();
   };
 
   return (
     <GoogleAuthContext.Provider value={{
       user, spreadsheetId, loading, syncing,
-      setSyncing, initialData, gapiReady, login, logout
+      setSyncing, initialData, login, logout
     }}>
       {children}
     </GoogleAuthContext.Provider>

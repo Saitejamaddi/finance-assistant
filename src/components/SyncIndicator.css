@@ -2,14 +2,15 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 8px 16px;
+  padding: 0 16px;
   background: #1a1f2e;
   position: fixed;
   top: 0;
   left: 220px;
   right: 0;
   z-index: 40;
-  height: 44px;
+  height: 48px;
+  border-bottom: 1px solid #252c3d;
 }
 
 .sync-user {
@@ -19,16 +20,36 @@
 }
 
 .sync-avatar {
-  width: 26px;
-  height: 26px;
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
   border: 2px solid #3b82f6;
+  flex-shrink: 0;
+}
+
+.sync-user-info {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
 }
 
 .sync-name {
   font-size: 13px;
-  color: #9ca3af;
+  color: #e5e7eb;
   font-weight: 500;
+  line-height: 1;
+}
+
+.sync-email {
+  font-size: 11px;
+  color: #6b7280;
+  line-height: 1;
+}
+
+.sync-chevron {
+  font-size: 11px;
+  color: #6b7280;
+  margin-left: 2px;
 }
 
 .sync-status {
@@ -36,6 +57,7 @@
   font-weight: 500;
   padding: 3px 10px;
   border-radius: 20px;
+  white-space: nowrap;
 }
 
 .sync-status.syncing {
@@ -51,12 +73,96 @@
 
 @keyframes pulse {
   0%, 100% { opacity: 1; }
-  50% { opacity: 0.5; }
+  50%       { opacity: 0.5; }
 }
 
+/* ── Dropdown menu ── */
+.sync-menu-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+}
+
+.sync-menu {
+  position: fixed;
+  top: 52px;
+  left: 224px;
+  background: #ffffff;
+  border-radius: 14px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+  z-index: 100;
+  width: 240px;
+  overflow: hidden;
+  animation: dropDown 0.15s ease;
+}
+
+@keyframes dropDown {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.sync-menu-user {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+}
+
+.sync-menu-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid #e5e7eb;
+}
+
+.sync-menu-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1a1f2e;
+}
+
+.sync-menu-email {
+  font-size: 12px;
+  color: #9ca3af;
+  margin-top: 2px;
+}
+
+.sync-menu-divider {
+  border: none;
+  border-top: 1px solid #f3f4f6;
+  margin: 0;
+}
+
+.sync-menu-signout {
+  width: 100%;
+  padding: 14px 16px;
+  background: none;
+  border: none;
+  font-size: 14px;
+  font-weight: 500;
+  color: #ef4444;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.2s;
+}
+
+.sync-menu-signout:hover {
+  background: #fef2f2;
+}
+
+/* ── Mobile ── */
 @media (max-width: 768px) {
   .sync-bar {
     left: 0;
-    top: 0;
+  }
+
+  .sync-menu {
+    left: 12px;
+    right: 12px;
+    width: auto;
+  }
+
+  .sync-email {
+    display: block; /* show email on mobile too */
   }
 }
