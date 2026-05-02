@@ -9,7 +9,7 @@ const BalanceContext = createContext();
 export const BalanceProvider = ({ children }) => {
   const { spreadsheetId, initialData, setSyncing } = useGoogleAuth();
   const { totalCredits, totalDebits } = useTransactions();
-  const { accounts, hasAnyAccountOpeningBalance, accountsOpeningBalanceTotal } = useAccounts();
+  const {hasAnyAccountOpeningBalance, accountsOpeningBalanceTotal } = useAccounts();
 
   const [manualOpeningBalance, setManualOpeningBalanceState] = useState(0);
   const [overrideEnabled, setOverrideEnabled] = useState(false);
