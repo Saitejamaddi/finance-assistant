@@ -5,6 +5,7 @@ import './Sidebar.css';
 const navItems = [
   { path: '/',             label: 'Dashboard',    icon: '📊' },
   { path: '/transactions', label: 'Transactions', icon: '💳' },
+  { path: '/accounts',     label: 'Accounts',     icon: '🏦' },
   { path: '/budget',       label: 'Budget',       icon: '📋' },
   { path: '/goals',        label: 'Goals',        icon: '🎯' },
   { path: '/reports',      label: 'Reports',      icon: '📈' },
@@ -22,7 +23,12 @@ const Sidebar = () => {
       </div>
       <nav className="sidebar-nav">
         {navItems.map((item) => (
-          <NavLink key={item.path} to={item.path} end={item.path === '/'} className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>
+          <NavLink
+            key={item.path}
+            to={item.path}
+            end={item.path === '/'}
+            className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}
+          >
             <span className="nav-icon">{item.icon}</span>
             <span className="nav-label">{item.label}</span>
           </NavLink>

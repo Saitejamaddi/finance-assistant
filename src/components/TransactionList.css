@@ -69,3 +69,17 @@
   .txn-item { padding: 10px 12px; }
   .txn-amount { font-size: 13px; }
 }
+
+/* ── Account filter bar ── */
+.account-filter-bar { margin-bottom: 8px; }
+
+.acc-filter-btn { display: flex; align-items: center; gap: 4px; }
+
+/* ── Account badge on transaction ── */
+.txn-acc-badge {
+  font-size: 11px;
+  font-weight: 500;
+  padding: 2px 8px;
+  border-radius: 10px;
+  white-space: nowrap;
+}

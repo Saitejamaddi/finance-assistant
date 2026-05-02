@@ -52,3 +52,47 @@
   .type-toggle { gap: 8px; }
   .toggle-btn { padding: 10px 8px; font-size: 14px; }
 }
+
+/* ── Account selector ── */
+.txn-account-select-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.txn-account-dot {
+  position: absolute;
+  left: 10px;
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.txn-account-select-wrap select {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 10px;
+  font-size: 14px;
+  color: #1a1f2e;
+  outline: none;
+  background: #f9fafb;
+  transition: border 0.2s;
+  appearance: none;
+  cursor: pointer;
+}
+
+.txn-account-select-wrap select.has-account-icon {
+  padding-left: 42px;
+}
+
+.txn-account-select-wrap select:focus {
+  border-color: #3b82f6;
+  background: #ffffff;
+}

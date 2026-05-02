@@ -2,7 +2,7 @@ import { createContext, useContext, useState, useEffect } from 'react';
 import {
   loadGapi, signInWithGoogle, findOrCreateSheet,
   readTransactions, readBudgets, readGoals,
-  readCategories, readSettings
+  readCategories, readSettings, readAccounts
 } from '../services/SheetsService';
 
 const GoogleAuthContext = createContext();
@@ -14,7 +14,6 @@ export const GoogleAuthProvider = ({ children }) => {
   const [syncing, setSyncing]             = useState(false);
   const [initialData, setInitialData]     = useState(null);
 
-  // ── On app load — restore session and reload data from Sheets ──────────
   useEffect(() => {
     const restoreSession = async () => {
       try {
@@ -29,33 +28,30 @@ export const GoogleAuthProvider = ({ children }) => {
           return;
         }
 
-        // Restore token into gapi
         window.gapi.client.setToken({ access_token: savedToken });
 
-        // Verify token is still valid
         const check = await fetch('https://www.googleapis.com/oauth2/v3/tokeninfo?access_token=' + savedToken);
         const tokenInfo = await check.json();
 
         if (tokenInfo.error) {
-          // Token expired — clear session, ask to login again
           clearSession();
           setLoading(false);
           return;
         }
 
-        // Token valid — reload all data from Sheets
         setSyncing(true);
-        const [transactions, budgets, goals, categories, settings] = await Promise.all([
+        const [transactions, budgets, goals, categories, settings, accounts] = await Promise.all([
           readTransactions(savedSheetId),
           readBudgets(savedSheetId),
           readGoals(savedSheetId),
           readCategories(savedSheetId),
           readSettings(savedSheetId),
+          readAccounts(savedSheetId),
         ]);
 
         setUser(JSON.parse(savedUser));
         setSpreadsheetId(savedSheetId);
-        setInitialData({ transactions, budgets, goals, categories, settings });
+        setInitialData({ transactions, budgets, goals, categories, settings, accounts });
 
       } catch (err) {
         console.error('Session restore error:', err);
@@ -84,32 +80,29 @@ export const GoogleAuthProvider = ({ children }) => {
       const token = await signInWithGoogle();
       window.gapi.client.setToken({ access_token: token });
 
-      // Get user info
       const userInfo = await fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
         headers: { Authorization: `Bearer ${token}` },
       }).then((r) => r.json());
 
-      // Find or create sheet
       setSyncing(true);
       const sheetId = await findOrCreateSheet();
 
-      // Load all existing data
-      const [transactions, budgets, goals, categories, settings] = await Promise.all([
+      const [transactions, budgets, goals, categories, settings, accounts] = await Promise.all([
         readTransactions(sheetId),
         readBudgets(sheetId),
         readGoals(sheetId),
         readCategories(sheetId),
         readSettings(sheetId),
+        readAccounts(sheetId),
       ]);
 
-      // Save session to localStorage
       localStorage.setItem('gauth_user',    JSON.stringify(userInfo));
       localStorage.setItem('gauth_sheetId', sheetId);
       localStorage.setItem('gauth_token',   token);
 
       setUser(userInfo);
       setSpreadsheetId(sheetId);
-      setInitialData({ transactions, budgets, goals, categories, settings });
+      setInitialData({ transactions, budgets, goals, categories, settings, accounts });
 
     } catch (err) {
       console.error('Login error:', err);

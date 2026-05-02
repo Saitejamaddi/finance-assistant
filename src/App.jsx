@@ -6,6 +6,7 @@ import Budget from './pages/Budget';
 import Goals from './pages/Goals';
 import Reports from './pages/Reports';
 import Categories from './pages/Categories';
+import Accounts from './pages/Accounts';
 import NotFound from './pages/NotFound';
 import LoginPage from './pages/LoginPage';
 import { GoogleAuthProvider, useGoogleAuth } from './context/GoogleAuthContext';
@@ -13,6 +14,7 @@ import { TransactionProvider } from './context/TransactionContext';
 import { BudgetProvider } from './context/BudgetContext';
 import { CategoryProvider } from './context/CategoryContext';
 import { BalanceProvider } from './context/BalanceContext';
+import { AccountProvider } from './context/AccountContext';
 
 const AppRoutes = () => {
   const { user, loading } = useGoogleAuth();
@@ -32,25 +34,28 @@ const AppRoutes = () => {
 
   return (
     <TransactionProvider>
-      <BalanceProvider>
-        <BudgetProvider>
-          <CategoryProvider>
-            <BrowserRouter>
-              <Routes>
-                <Route path="/" element={<Layout />}>
-                  <Route index element={<Dashboard />} />
-                  <Route path="transactions" element={<Transactions />} />
-                  <Route path="budget" element={<Budget />} />
-                  <Route path="goals" element={<Goals />} />
-                  <Route path="reports" element={<Reports />} />
-                  <Route path="categories" element={<Categories />} />
-                  <Route path="*" element={<NotFound />} />
-                </Route>
-              </Routes>
-            </BrowserRouter>
-          </CategoryProvider>
-        </BudgetProvider>
-      </BalanceProvider>
+      <AccountProvider>
+        <BalanceProvider>
+          <BudgetProvider>
+            <CategoryProvider>
+              <BrowserRouter>
+                <Routes>
+                  <Route path="/" element={<Layout />}>
+                    <Route index element={<Dashboard />} />
+                    <Route path="transactions" element={<Transactions />} />
+                    <Route path="budget" element={<Budget />} />
+                    <Route path="goals" element={<Goals />} />
+                    <Route path="reports" element={<Reports />} />
+                    <Route path="categories" element={<Categories />} />
+                    <Route path="accounts" element={<Accounts />} />
+                    <Route path="*" element={<NotFound />} />
+                  </Route>
+                </Routes>
+              </BrowserRouter>
+            </CategoryProvider>
+          </BudgetProvider>
+        </BalanceProvider>
+      </AccountProvider>
     </TransactionProvider>
   );
 };

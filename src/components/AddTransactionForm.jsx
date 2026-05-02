@@ -1,11 +1,13 @@
 import { useState } from 'react';
 import { useTransactions } from '../context/TransactionContext';
 import { useCategories } from '../context/CategoryContext';
+import { useAccounts } from '../context/AccountContext';
 import './AddTransactionForm.css';
 
 const AddTransactionForm = () => {
   const { addTransaction } = useTransactions();
   const { allCategories } = useCategories();
+  const { accounts } = useAccounts();
 
   const emptyForm = {
     title: '',
@@ -16,6 +18,7 @@ const AddTransactionForm = () => {
     notes: '',
     isRecurring: false,
     recurringFrequency: 'monthly',
+    accountId: accounts.length > 0 ? accounts[0].id : '',
   };
 
   const [form, setForm] = useState(emptyForm);
@@ -28,9 +31,15 @@ const AddTransactionForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!form.title.trim() || !form.amount) return;
-    addTransaction({ ...form, amount: parseFloat(form.amount) });
-    setForm(emptyForm);
+    addTransaction({
+      ...form,
+      amount: parseFloat(form.amount),
+      accountId: form.accountId !== '' ? Number(form.accountId) : null,
+    });
+    setForm({ ...emptyForm, accountId: form.accountId });
   };
+
+  const selectedAccount = accounts.find(a => a.id === Number(form.accountId));
 
   return (
     <div className="txn-form-card">
@@ -48,13 +57,29 @@ const AddTransactionForm = () => {
 
         <div className="form-group">
           <label>Title *</label>
-          <input type="text" name="title" placeholder={form.type === 'debit' ? 'e.g. Grocery shopping' : 'e.g. Monthly salary'} value={form.title} onChange={handleChange} required />
+          <input
+            type="text"
+            name="title"
+            placeholder={form.type === 'debit' ? 'e.g. Grocery shopping' : 'e.g. Monthly salary'}
+            value={form.title}
+            onChange={handleChange}
+            required
+          />
         </div>
 
         <div className="txn-form-row">
           <div className="form-group">
             <label>Amount (₹) *</label>
-            <input type="number" name="amount" placeholder="0.00" value={form.amount} onChange={handleChange} min="0" step="0.01" required />
+            <input
+              type="number"
+              name="amount"
+              placeholder="0.00"
+              value={form.amount}
+              onChange={handleChange}
+              min="0"
+              step="0.01"
+              required
+            />
           </div>
           <div className="form-group">
             <label>Date</label>
@@ -69,9 +94,45 @@ const AddTransactionForm = () => {
           </select>
         </div>
 
+        {accounts.length > 0 && (
+          <div className="form-group">
+            <label>Account</label>
+            <div className="txn-account-select-wrap">
+              {selectedAccount && (
+                <span
+                  className="txn-account-dot"
+                  style={{ background: selectedAccount.color }}
+                >
+                  {selectedAccount.icon}
+                </span>
+              )}
+              <select
+                name="accountId"
+                value={form.accountId}
+                onChange={handleChange}
+                className={selectedAccount ? 'has-account-icon' : ''}
+              >
+                <option value="">No account</option>
+                {accounts.map(acc => (
+                  <option key={acc.id} value={acc.id}>
+                    {acc.icon} {acc.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+        )}
+
         <div className="form-group">
           <label>Notes <span className="optional-tag">optional</span></label>
-          <textarea name="notes" placeholder="Add any extra details about this transaction..." value={form.notes} onChange={handleChange} rows={2} className="notes-textarea" />
+          <textarea
+            name="notes"
+            placeholder="Add any extra details about this transaction..."
+            value={form.notes}
+            onChange={handleChange}
+            rows={2}
+            className="notes-textarea"
+          />
         </div>
 
         <div className="recurring-section">

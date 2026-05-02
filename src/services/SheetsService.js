@@ -9,6 +9,7 @@ const TABS = {
   GOALS:        'Goals',
   CATEGORIES:   'Categories',
   SETTINGS:     'Settings',
+  ACCOUNTS:     'Accounts',
 };
 
 // ── Load gapi and initialize ────────────────────────────────────────────
@@ -48,7 +49,6 @@ export const signInWithGoogle = () => {
 
 // ── Find or create the "Finances" spreadsheet ───────────────────────────
 export const findOrCreateSheet = async () => {
-  // Search for existing sheet
   const res = await window.gapi.client.drive.files.list({
     q: `name='${SHEET_NAME}' and mimeType='application/vnd.google-apps.spreadsheet' and trashed=false`,
     fields: 'files(id, name)',
@@ -58,15 +58,12 @@ export const findOrCreateSheet = async () => {
     return res.result.files[0].id;
   }
 
-  // Create new spreadsheet
   const createRes = await window.gapi.client.sheets.spreadsheets.create({
     properties: { title: SHEET_NAME },
     sheets: Object.values(TABS).map((title) => ({ properties: { title } })),
   });
 
   const spreadsheetId = createRes.result.spreadsheetId;
-
-  // Add headers to each tab
   await addHeaders(spreadsheetId);
   return spreadsheetId;
 };
@@ -76,7 +73,7 @@ const addHeaders = async (spreadsheetId) => {
   const data = [
     {
       range: `${TABS.TRANSACTIONS}!A1`,
-      values: [['ID', 'Title', 'Type', 'Amount', 'Category', 'Date', 'Notes', 'IsRecurring', 'Frequency']],
+      values: [['ID', 'Title', 'Type', 'Amount', 'Category', 'Date', 'Notes', 'IsRecurring', 'Frequency', 'AccountId']],
     },
     {
       range: `${TABS.BUDGETS}!A1`,
@@ -93,6 +90,10 @@ const addHeaders = async (spreadsheetId) => {
     {
       range: `${TABS.SETTINGS}!A1`,
       values: [['Key', 'Value']],
+    },
+    {
+      range: `${TABS.ACCOUNTS}!A1`,
+      values: [['ID', 'Name', 'Icon', 'Color', 'OpeningBalance']],
     },
   ];
 
@@ -124,11 +125,11 @@ export const readTransactions = async (spreadsheetId) => {
     notes:              r[6] || '',
     isRecurring:        r[7] === 'true',
     recurringFrequency: r[8] || 'monthly',
+    accountId:          r[9] ? Number(r[9]) : null,
   }));
 };
 
 export const writeAllTransactions = async (spreadsheetId, transactions) => {
-  // Clear existing data
   await window.gapi.client.sheets.spreadsheets.values.clear({
     spreadsheetId,
     range: `${TABS.TRANSACTIONS}!A2:Z`,
@@ -139,6 +140,7 @@ export const writeAllTransactions = async (spreadsheetId, transactions) => {
   const values = transactions.map((t) => [
     t.id, t.title, t.type, t.amount, t.category,
     t.date, t.notes || '', t.isRecurring, t.recurringFrequency,
+    t.accountId ?? '',
   ]);
 
   await window.gapi.client.sheets.spreadsheets.values.update({
@@ -225,7 +227,7 @@ export const writeAllCategories = async (spreadsheetId, categories) => {
   });
 };
 
-// ── SETTINGS (opening balance) ──────────────────────────────────────────
+// ── SETTINGS ────────────────────────────────────────────────────────────
 export const readSettings = async (spreadsheetId) => {
   const rows = await readTab(spreadsheetId, TABS.SETTINGS);
   const settings = {};
@@ -251,5 +253,75 @@ export const writeSetting = async (spreadsheetId, key, value) => {
       valueInputOption: 'RAW',
       resource: { values: [[key, value]] },
     });
+  }
+};
+
+// ── ACCOUNTS ────────────────────────────────────────────────────────────
+const ensureAccountsTab = async (spreadsheetId) => {
+  // Check if Accounts tab exists
+  const meta = await window.gapi.client.sheets.spreadsheets.get({ spreadsheetId });
+  const sheets = meta.result.sheets || [];
+  const exists = sheets.some(s => s.properties.title === TABS.ACCOUNTS);
+
+  if (!exists) {
+    // Create the tab
+    await window.gapi.client.sheets.spreadsheets.batchUpdate({
+      spreadsheetId,
+      resource: {
+        requests: [{ addSheet: { properties: { title: TABS.ACCOUNTS } } }]
+      }
+    });
+    // Add header row
+    await window.gapi.client.sheets.spreadsheets.values.update({
+      spreadsheetId,
+      range: `${TABS.ACCOUNTS}!A1`,
+      valueInputOption: 'RAW',
+      resource: { values: [['ID', 'Name', 'Icon', 'Color', 'OpeningBalance']] },
+    });
+  }
+};
+
+export const readAccounts = async (spreadsheetId) => {
+  try {
+    await ensureAccountsTab(spreadsheetId);
+    const rows = await readTab(spreadsheetId, TABS.ACCOUNTS);
+    return rows.map(([id, name, icon, color, openingBalance]) => ({
+      id:             Number(id),
+      name:           name || '',
+      icon:           icon || '🏦',
+      color:          color || '#6b7280',
+      openingBalance: openingBalance !== undefined && openingBalance !== ''
+                        ? parseFloat(openingBalance)
+                        : '',
+    }));
+  } catch (err) {
+    console.warn('readAccounts error:', err);
+    return [];
+  }
+};
+
+export const writeAllAccounts = async (spreadsheetId, accounts) => {
+  try {
+    await ensureAccountsTab(spreadsheetId);
+
+    await window.gapi.client.sheets.spreadsheets.values.clear({
+      spreadsheetId,
+      range: `${TABS.ACCOUNTS}!A2:Z`,
+    });
+
+    if (accounts.length === 0) return;
+
+    await window.gapi.client.sheets.spreadsheets.values.update({
+      spreadsheetId,
+      range: `${TABS.ACCOUNTS}!A2`,
+      valueInputOption: 'RAW',
+      resource: {
+        values: accounts.map((a) => [
+          a.id, a.name, a.icon, a.color, a.openingBalance ?? ''
+        ]),
+      },
+    });
+  } catch (err) {
+    console.error('writeAllAccounts error:', err);
   }
 };

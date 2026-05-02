@@ -1,14 +1,13 @@
 import { NavLink } from 'react-router-dom';
-//import { useGoogleAuth } from '../context/GoogleAuthContext';
 import './BottomNav.css';
 
 const navItems = [
-  { path: '/',             label: 'Home',    icon: '📊' },
-  { path: '/transactions', label: 'Txns',    icon: '💳' },
-  { path: '/budget',       label: 'Budget',  icon: '📋' },
-  { path: '/goals',        label: 'Goals',   icon: '🎯' },
-  { path: '/reports',      label: 'Reports', icon: '📈' },
-  { path: '/categories',   label: 'More',    icon: '🏷️' },
+  { path: '/',             label: 'Home',     icon: '📊' },
+  { path: '/transactions', label: 'Txns',     icon: '💳' },
+  { path: '/accounts',     label: 'Accounts', icon: '🏦' },
+  { path: '/budget',       label: 'Budget',   icon: '📋' },
+  { path: '/goals',        label: 'Goals',    icon: '🎯' },
+  { path: '/reports',      label: 'Reports',  icon: '📈' },
 ];
 
 const BottomNav = () => {
