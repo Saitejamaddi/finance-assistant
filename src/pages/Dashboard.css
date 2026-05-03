@@ -1,66 +1,178 @@
 /* ── Summary grid ── */
 .dash-summary {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: 1fr 200px;
   gap: 16px;
   margin-bottom: 24px;
 }
 
+/* ── Balance card ── */
 .balance-card {
-  grid-column: span 2;
-  background: #caf19a;
+  background: #ffffff;
   border-radius: 16px;
   padding: 24px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+  gap: 16px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
+  border: 0.5px solid #e5e7eb;
 }
 
-.balance-card .dash-label { color: #9ca3af; font-size: 13px; font-weight: 500; }
+.balance-card-main {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.balance-card .dash-label {
+  font-size: 12px;
+  color: #9ca3af;
+  font-weight: 500;
+  display: block;
+  margin-bottom: 4px;
+}
 
 .balance-val {
   font-size: 36px;
   font-weight: 700;
-  color: #ffffff;
-  line-height: 1.2;
+  color: #1a1f2e;
+  line-height: 1.1;
+}
+.balance-val.negative {
+  color: #ef4444;
 }
 
-.balance-val.negative { color: #ef4444; }
-
-.balance-hint {
+.balance-edit-btn {
+  white-space: nowrap;
   font-size: 12px;
   color: #6b7280;
+  background: #f9fafb;
+  border: 0.5px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 7px 14px;
   cursor: pointer;
-  margin-top: 4px;
-  transition: color 0.2s;
+  font-family: inherit;
+  transition:
+    background 0.15s,
+    color 0.15s;
+  margin-top: 6px;
+  flex-shrink: 0;
 }
-.balance-hint:hover { color: #60a5fa; }
+.balance-edit-btn:hover {
+  background: #f3f4f6;
+  color: #1a1f2e;
+}
+
+/* ── Breakdown strip ── */
+.balance-breakdown {
+  display: flex;
+  align-items: stretch;
+  border: 0.5px solid #e5e7eb;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #f9fafb;
+}
+
+.breakdown-item {
+  flex: 1;
+  padding: 10px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.breakdown-divider {
+  width: 0.5px;
+  background: #e5e7eb;
+  flex-shrink: 0;
+}
+
+.breakdown-label {
+  font-size: 11px;
+  color: #9ca3af;
+  white-space: nowrap;
+}
+
+.breakdown-val {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1a1f2e;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.breakdown-tag {
+  font-size: 10px;
+  padding: 2px 7px;
+  border-radius: 99px;
+  background: #eff6ff;
+  color: #3b82f6;
+  width: fit-content;
+  white-space: nowrap;
+}
+
+.breakdown-reset {
+  font-size: 10px;
+  padding: 2px 7px;
+  border-radius: 99px;
+  background: none;
+  border: 0.5px solid #e5e7eb;
+  color: #9ca3af;
+  cursor: pointer;
+  font-family: inherit;
+  width: fit-content;
+  white-space: nowrap;
+  transition: color 0.15s;
+}
+.breakdown-reset:hover {
+  color: #3b82f6;
+  border-color: #bfdbfe;
+}
+
+/* ── Inline edit ── */
+.balance-edit-inline {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.balance-edit-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.balance-edit-label {
+  font-size: 12px;
+  color: #9ca3af;
+}
 
 .balance-edit-row {
   display: flex;
   gap: 8px;
-  margin-top: 4px;
   align-items: center;
-  flex-wrap: wrap;
 }
 
 .balance-input {
   flex: 1;
-  min-width: 100px;
-  padding: 8px 12px;
+  min-width: 0;
+  padding: 9px 12px;
   border-radius: 8px;
-  border: 1px solid #4b5563;
-  background: #374151;
-  color: #ffffff;
+  border: 1.5px solid #e5e7eb;
+  background: #ffffff;
+  color: #1a1f2e;
   font-size: 14px;
   outline: none;
+  font-family: inherit;
+}
+.balance-input:focus {
+  border-color: #3b82f6;
 }
 
-.balance-input:focus { border-color: #3b82f6; }
-
 .balance-save-btn {
-  padding: 8px 16px;
+  padding: 9px 18px;
   background: #3b82f6;
   color: #fff;
   border: none;
@@ -68,113 +180,71 @@
   font-size: 13px;
   font-weight: 600;
   cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.2s;
+}
+.balance-save-btn:hover {
+  background: #2563eb;
 }
 
 .balance-cancel-btn {
-  padding: 8px 10px;
-  background: #4b5563;
-  color: #fff;
+  padding: 9px 14px;
+  background: #f3f4f6;
+  color: #6b7280;
   border: none;
   border-radius: 8px;
   font-size: 13px;
+  font-weight: 600;
   cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.2s;
+}
+.balance-cancel-btn:hover {
+  background: #e5e7eb;
 }
 
+.balance-acc-note {
+  font-size: 12px;
+  color: #9ca3af;
+  line-height: 1.5;
+}
+
+/* ── Other summary cards ── */
 .dash-card {
   border-radius: 16px;
   padding: 20px 24px;
   display: flex;
   flex-direction: column;
   gap: 6px;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
 }
 
-.debit-card  { background: #fef2f2; }
-.credit-card { background: #f0fdf4; }
-.purple      { background: #faf5ff; }
-
-.dash-label { font-size: 13px; color: #6b7280; font-weight: 500; }
-.dash-value { font-size: 26px; font-weight: 700; color: #1a1f2e; }
-.debit-color  { color: #ef4444 !important; }
-.credit-color { color: #10b981 !important; }
-
-/* ── Charts grid ── */
-.dash-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 24px;
+.debit-card {
+  background: #fef2f2;
+}
+.credit-card {
+  background: #f0fdf4;
+}
+.purple {
+  background: #faf5ff;
 }
 
-.dash-panel {
-  background: #ffffff;
-  border-radius: 16px;
-  padding: 24px;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+.dash-label {
+  font-size: 13px;
+  color: #6b7280;
+  font-weight: 500;
 }
-
-.panel-title { font-size: 16px; font-weight: 600; color: #1a1f2e; margin-bottom: 16px; }
-.panel-empty { color: #9ca3af; font-size: 14px; text-align: center; padding: 40px 0; }
-
-.recent-list { display: flex; flex-direction: column; gap: 12px; }
-
-.recent-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 14px;
-  background: #f9fafb;
-  border-radius: 10px;
+.dash-value {
+  font-size: 26px;
+  font-weight: 700;
+  color: #1a1f2e;
 }
-
-.recent-title { font-size: 14px; font-weight: 500; color: #1a1f2e; }
-.recent-meta  { font-size: 12px; color: #9ca3af; margin-top: 2px; }
-.recent-amount { font-size: 14px; font-weight: 600; }
-.recent-amount.debit  { color: #ef4444; }
-.recent-amount.credit { color: #10b981; }
-
-/* ── Mobile ── */
-@media (max-width: 768px) {
-  .dash-summary {
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-  }
-
-  .balance-card {
-    grid-column: span 2;
-    padding: 18px;
-  }
-
-  .balance-val { font-size: 28px; }
-
-  .dash-card { padding: 14px 16px; }
-  .dash-value { font-size: 20px; }
-  .dash-label { font-size: 12px; }
-
-  .dash-grid {
-    grid-template-columns: 1fr;
-    gap: 16px;
-  }
+.debit-color {
+  color: #ef4444 !important;
 }
-
-/* ── Balance hint row ── */
-.balance-hint-row {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 6px;
+.credit-color {
+  color: #10b981 !important;
 }
-
-.balance-override-link {
-  background: none;
-  border: none;
-  color: #3b82f6;
-  font-size: 12px;
-  cursor: pointer;
-  padding: 0 4px;
-  text-decoration: underline;
-  margin-left: 6px;
-}
-.balance-override-link:hover { color: #2563eb; }
 
 /* ── Per-account strip ── */
 .acc-balance-strip {
@@ -191,7 +261,7 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 .acc-strip-icon {
@@ -211,7 +281,6 @@
   gap: 2px;
   min-width: 0;
 }
-
 .acc-strip-name {
   font-size: 12px;
   color: #6b7280;
@@ -220,20 +289,85 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
-
 .acc-strip-bal {
   font-size: 14px;
   font-weight: 700;
 }
-.acc-strip-bal.positive { color: #1a1f2e; }
-.acc-strip-bal.negative { color: #ef4444; }
+.acc-strip-bal.positive {
+  color: #1a1f2e;
+}
+.acc-strip-bal.negative {
+  color: #ef4444;
+}
 
-/* ── Recent transaction account badge ── */
+/* ── Charts grid ── */
+.dash-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.dash-panel {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
+}
+
+.panel-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1a1f2e;
+  margin-bottom: 16px;
+}
+.panel-empty {
+  color: #9ca3af;
+  font-size: 14px;
+  text-align: center;
+  padding: 40px 0;
+}
+
+.recent-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.recent-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 14px;
+  background: #f9fafb;
+  border-radius: 10px;
+}
+
 .recent-title-row {
   display: flex;
   align-items: center;
   gap: 6px;
   flex-wrap: wrap;
+}
+
+.recent-title {
+  font-size: 14px;
+  font-weight: 500;
+  color: #1a1f2e;
+}
+.recent-meta {
+  font-size: 12px;
+  color: #9ca3af;
+  margin-top: 2px;
+}
+.recent-amount {
+  font-size: 14px;
+  font-weight: 600;
+}
+.recent-amount.debit {
+  color: #ef4444;
+}
+.recent-amount.credit {
+  color: #10b981;
 }
 
 .recent-acc-badge {
@@ -242,4 +376,42 @@
   padding: 2px 8px;
   border-radius: 10px;
   white-space: nowrap;
+}
+
+/* ── Mobile ── */
+@media (max-width: 768px) {
+  .dash-summary {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .balance-val {
+    font-size: 28px;
+  }
+  .balance-card-main {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .balance-edit-btn {
+    margin-top: 0;
+  }
+
+  .breakdown-item {
+    padding: 10px 10px;
+  }
+  .breakdown-val {
+    font-size: 12px;
+  }
+
+  .dash-card {
+    padding: 14px 16px;
+  }
+  .dash-value {
+    font-size: 20px;
+  }
+
+  .dash-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
 }

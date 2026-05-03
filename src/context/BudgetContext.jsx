@@ -9,14 +9,10 @@ export const BudgetProvider = ({ children }) => {
   const [budgets, setBudgets] = useState({});
 
   useEffect(() => {
-    if (initialData?.budgets) {
-      setBudgets(initialData.budgets);
-    }
+    if (initialData?.budgets) setBudgets(initialData.budgets);
   }, [initialData]);
 
-  const setBudget = async (category, amount) => {
-    const updated = { ...budgets, [category]: parseFloat(amount) };
-    setBudgets(updated);
+  const sync = async (updated) => {
     if (!spreadsheetId) return;
     setSyncing(true);
     try {
@@ -28,8 +24,23 @@ export const BudgetProvider = ({ children }) => {
     }
   };
 
+  const setBudget = async (category, amount) => {
+    const updated = { ...budgets, [category]: parseFloat(amount) };
+    setBudgets(updated);
+    await sync(updated);
+  };
+
+  const deleteBudget = async (category) => {
+    const updated = { ...budgets };
+    delete updated[category];
+    setBudgets(updated);
+    await sync(updated);
+  };
+
+  const totalBudget = Object.values(budgets).reduce((s, a) => s + parseFloat(a || 0), 0);
+
   return (
-    <BudgetContext.Provider value={{ budgets, setBudget }}>
+    <BudgetContext.Provider value={{ budgets, setBudget, deleteBudget, totalBudget }}>
       {children}
     </BudgetContext.Provider>
   );
