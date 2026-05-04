@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useAccounts } from '../context/AccountContext';
-import { useTransactions } from '../context/TransactionContext';
+//import { useTransactions } from '../context/TransactionContext';
 import { useBalance } from '../context/BalanceContext';
 import './Accounts.css';
 import './PageStyles.css';
@@ -23,7 +23,7 @@ const defaultForm = {
 const AccountCard = ({ account, onEdit, onDelete, balance }) => {
   const isCreditCard = account.accountType === 'credit';
   const due = isCreditCard ? Math.max(0, balance * -1) : 0;
-  const displayBalance = isCreditCard ? due : balance;
+  //const displayBalance = isCreditCard ? due : balance;
   const isNegative = !isCreditCard && balance < 0;
 
   const utilizationPct = isCreditCard && account.creditLimit
