@@ -46,19 +46,30 @@ export const AccountProvider = ({ children }) => {
     await syncToSheets(updated);
   };
 
-  // Sum of all per-account opening balances (only accounts that have one set)
-  const accountsOpeningBalanceTotal = accounts
+  // ── Derived values ──────────────────────────────────────────────────
+
+  const bankAccounts   = accounts.filter(a => a.accountType !== 'credit');
+  const creditAccounts = accounts.filter(a => a.accountType === 'credit');
+
+  // Opening balance: sum of bank accounts only
+  const accountsOpeningBalanceTotal = bankAccounts
     .filter(a => a.openingBalance != null && a.openingBalance !== '')
     .reduce((sum, a) => sum + parseFloat(a.openingBalance || 0), 0);
 
-  const hasAnyAccountOpeningBalance = accounts.some(
+  const hasAnyAccountOpeningBalance = bankAccounts.some(
     a => a.openingBalance != null && a.openingBalance !== ''
   );
 
   return (
     <AccountContext.Provider value={{
-      accounts, addAccount, updateAccount, deleteAccount,
-      accountsOpeningBalanceTotal, hasAnyAccountOpeningBalance,
+      accounts,
+      bankAccounts,
+      creditAccounts,
+      addAccount,
+      updateAccount,
+      deleteAccount,
+      accountsOpeningBalanceTotal,
+      hasAnyAccountOpeningBalance,
     }}>
       {children}
     </AccountContext.Provider>

@@ -1,9 +1,16 @@
 /* ── Summary grid ── */
 .dash-summary {
   display: grid;
-  grid-template-columns: 1fr 200px;
+  grid-template-columns: 1fr 220px;
   gap: 16px;
   margin-bottom: 24px;
+  align-items: start;
+}
+
+.dash-right-col {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
 /* ── Balance card ── */
@@ -14,7 +21,7 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
   border: 0.5px solid #e5e7eb;
 }
 
@@ -39,9 +46,7 @@
   color: #1a1f2e;
   line-height: 1.1;
 }
-.balance-val.negative {
-  color: #ef4444;
-}
+.balance-val.negative { color: #ef4444; }
 
 .balance-edit-btn {
   white-space: nowrap;
@@ -53,16 +58,11 @@
   padding: 7px 14px;
   cursor: pointer;
   font-family: inherit;
-  transition:
-    background 0.15s,
-    color 0.15s;
+  transition: background 0.15s, color 0.15s;
   margin-top: 6px;
   flex-shrink: 0;
 }
-.balance-edit-btn:hover {
-  background: #f3f4f6;
-  color: #1a1f2e;
-}
+.balance-edit-btn:hover { background: #f3f4f6; color: #1a1f2e; }
 
 /* ── Breakdown strip ── */
 .balance-breakdown {
@@ -83,26 +83,10 @@
   min-width: 0;
 }
 
-.breakdown-divider {
-  width: 0.5px;
-  background: #e5e7eb;
-  flex-shrink: 0;
-}
+.breakdown-divider { width: 0.5px; background: #e5e7eb; flex-shrink: 0; }
 
-.breakdown-label {
-  font-size: 11px;
-  color: #9ca3af;
-  white-space: nowrap;
-}
-
-.breakdown-val {
-  font-size: 14px;
-  font-weight: 600;
-  color: #1a1f2e;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
+.breakdown-label { font-size: 11px; color: #9ca3af; white-space: nowrap; }
+.breakdown-val   { font-size: 13px; font-weight: 600; color: #1a1f2e; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
 .breakdown-tag {
   font-size: 10px;
@@ -111,7 +95,6 @@
   background: #eff6ff;
   color: #3b82f6;
   width: fit-content;
-  white-space: nowrap;
 }
 
 .breakdown-reset {
@@ -124,36 +107,16 @@
   cursor: pointer;
   font-family: inherit;
   width: fit-content;
-  white-space: nowrap;
   transition: color 0.15s;
 }
-.breakdown-reset:hover {
-  color: #3b82f6;
-  border-color: #bfdbfe;
-}
+.breakdown-reset:hover { color: #3b82f6; border-color: #bfdbfe; }
 
 /* ── Inline edit ── */
-.balance-edit-inline {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
+.balance-edit-inline { display: flex; flex-direction: column; gap: 8px; }
+.balance-edit-field  { display: flex; flex-direction: column; gap: 6px; }
+.balance-edit-label  { font-size: 12px; color: #9ca3af; }
 
-.balance-edit-field {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-.balance-edit-label {
-  font-size: 12px;
-  color: #9ca3af;
-}
-
-.balance-edit-row {
-  display: flex;
-  gap: 8px;
-  align-items: center;
-}
+.balance-edit-row { display: flex; gap: 8px; align-items: center; }
 
 .balance-input {
   flex: 1;
@@ -167,9 +130,7 @@
   outline: none;
   font-family: inherit;
 }
-.balance-input:focus {
-  border-color: #3b82f6;
-}
+.balance-input:focus { border-color: #3b82f6; }
 
 .balance-save-btn {
   padding: 9px 18px;
@@ -181,11 +142,8 @@
   font-weight: 600;
   cursor: pointer;
   white-space: nowrap;
-  transition: background 0.2s;
 }
-.balance-save-btn:hover {
-  background: #2563eb;
-}
+.balance-save-btn:hover { background: #2563eb; }
 
 .balance-cancel-btn {
   padding: 9px 14px;
@@ -197,54 +155,30 @@
   font-weight: 600;
   cursor: pointer;
   white-space: nowrap;
-  transition: background 0.2s;
 }
-.balance-cancel-btn:hover {
-  background: #e5e7eb;
-}
+.balance-cancel-btn:hover { background: #e5e7eb; }
 
-.balance-acc-note {
-  font-size: 12px;
-  color: #9ca3af;
-  line-height: 1.5;
-}
+.balance-acc-note { font-size: 12px; color: #9ca3af; line-height: 1.5; }
 
-/* ── Other summary cards ── */
+/* ── Net worth & credit due cards ── */
 .dash-card {
   border-radius: 16px;
-  padding: 20px 24px;
+  padding: 20px;
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  gap: 4px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
 }
 
-.debit-card {
-  background: #fef2f2;
-}
-.credit-card {
-  background: #f0fdf4;
-}
-.purple {
-  background: #faf5ff;
-}
+.networth-card    { background: #f0fdf4; border: 0.5px solid #bbf7d0; }
+.credit-due-card  { background: #fdf2f8; border: 0.5px solid #f5d0fe; }
 
-.dash-label {
-  font-size: 13px;
-  color: #6b7280;
-  font-weight: 500;
-}
-.dash-value {
-  font-size: 26px;
-  font-weight: 700;
-  color: #1a1f2e;
-}
-.debit-color {
-  color: #ef4444 !important;
-}
-.credit-color {
-  color: #10b981 !important;
-}
+.dash-label    { font-size: 12px; color: #6b7280; font-weight: 500; }
+.dash-value    { font-size: 22px; font-weight: 700; color: #1a1f2e; }
+.dash-card-sub { font-size: 11px; color: #9ca3af; margin-top: 2px; }
+
+.debit-color  { color: #ef4444 !important; }
+.credit-color { color: #10b981 !important; }
 
 /* ── Per-account strip ── */
 .acc-balance-strip {
@@ -261,7 +195,7 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
 }
 
 .acc-strip-icon {
@@ -275,30 +209,11 @@
   flex-shrink: 0;
 }
 
-.acc-strip-info {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  min-width: 0;
-}
-.acc-strip-name {
-  font-size: 12px;
-  color: #6b7280;
-  font-weight: 500;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.acc-strip-bal {
-  font-size: 14px;
-  font-weight: 700;
-}
-.acc-strip-bal.positive {
-  color: #1a1f2e;
-}
-.acc-strip-bal.negative {
-  color: #ef4444;
-}
+.acc-strip-info  { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.acc-strip-name  { font-size: 12px; color: #6b7280; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.acc-strip-bal   { font-size: 14px; font-weight: 700; }
+.acc-strip-bal.positive { color: #1a1f2e; }
+.acc-strip-bal.negative { color: #ef4444; }
 
 /* ── Charts grid ── */
 .dash-grid {
@@ -311,27 +226,13 @@
   background: #ffffff;
   border-radius: 16px;
   padding: 24px;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
 }
 
-.panel-title {
-  font-size: 16px;
-  font-weight: 600;
-  color: #1a1f2e;
-  margin-bottom: 16px;
-}
-.panel-empty {
-  color: #9ca3af;
-  font-size: 14px;
-  text-align: center;
-  padding: 40px 0;
-}
+.panel-title { font-size: 16px; font-weight: 600; color: #1a1f2e; margin-bottom: 16px; }
+.panel-empty { color: #9ca3af; font-size: 14px; text-align: center; padding: 40px 0; }
 
-.recent-list {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
+.recent-list { display: flex; flex-direction: column; gap: 12px; }
 
 .recent-item {
   display: flex;
@@ -342,33 +243,12 @@
   border-radius: 10px;
 }
 
-.recent-title-row {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  flex-wrap: wrap;
-}
-
-.recent-title {
-  font-size: 14px;
-  font-weight: 500;
-  color: #1a1f2e;
-}
-.recent-meta {
-  font-size: 12px;
-  color: #9ca3af;
-  margin-top: 2px;
-}
-.recent-amount {
-  font-size: 14px;
-  font-weight: 600;
-}
-.recent-amount.debit {
-  color: #ef4444;
-}
-.recent-amount.credit {
-  color: #10b981;
-}
+.recent-title-row { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.recent-title     { font-size: 14px; font-weight: 500; color: #1a1f2e; }
+.recent-meta      { font-size: 12px; color: #9ca3af; margin-top: 2px; }
+.recent-amount    { font-size: 14px; font-weight: 600; }
+.recent-amount.debit  { color: #ef4444; }
+.recent-amount.credit { color: #10b981; }
 
 .recent-acc-badge {
   font-size: 11px;
@@ -384,34 +264,10 @@
     grid-template-columns: 1fr;
     gap: 12px;
   }
-
-  .balance-val {
-    font-size: 28px;
-  }
-  .balance-card-main {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  .balance-edit-btn {
-    margin-top: 0;
-  }
-
-  .breakdown-item {
-    padding: 10px 10px;
-  }
-  .breakdown-val {
-    font-size: 12px;
-  }
-
-  .dash-card {
-    padding: 14px 16px;
-  }
-  .dash-value {
-    font-size: 20px;
-  }
-
-  .dash-grid {
-    grid-template-columns: 1fr;
-    gap: 16px;
-  }
+  .balance-val         { font-size: 28px; }
+  .balance-card-main   { flex-direction: column; align-items: flex-start; }
+  .balance-edit-btn    { margin-top: 0; }
+  .breakdown-item      { padding: 10px; }
+  .breakdown-val       { font-size: 12px; }
+  .dash-grid           { grid-template-columns: 1fr; gap: 16px; }
 }

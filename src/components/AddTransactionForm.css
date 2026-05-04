@@ -96,3 +96,38 @@
   border-color: #3b82f6;
   background: #ffffff;
 }
+
+/* ── Credit card hint ── */
+.txn-cc-hint {
+  font-size: 12px;
+  color: #a855f7;
+  background: #faf5ff;
+  border: 1px solid #e9d5ff;
+  border-radius: 8px;
+  padding: 8px 12px;
+  margin-top: 6px;
+}
+
+/* ── Bill payment row ── */
+.txn-bill-payment-row {
+  background: #fff7ed;
+  border: 1.5px solid #fed7aa;
+  border-radius: 10px;
+  padding: 12px 14px;
+}
+
+.txn-bill-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #92400e;
+  cursor: pointer;
+}
+
+.txn-bill-label input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
